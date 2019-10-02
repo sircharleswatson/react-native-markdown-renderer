@@ -26,7 +26,26 @@ export default class AstRenderer {
    * @return {string}
    */
   getRenderFunction = type => {
-    const renderFunction = this._renderRules[type];
+    let renderFunction;
+    let allowedTypes = [
+      "text",
+      "textgroup",
+      "strong",
+      "em",
+      "paragraph",
+      "blockquote",
+      "softbreak",
+      "hardbreak",
+      "s",
+      "root",
+      "view",
+    ]
+
+    if (allowedTypes.includes(type)) {
+      renderFunction = this._renderRules[type];
+    } else {
+      renderFunction = this._renderRules["text"]
+    }
 
     if (!renderFunction) {
       throw new Error(
